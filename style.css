@@ -1,0 +1,754 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+:root{
+  --bg:#f3f4f6;
+  --white:#fff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#c9d4de;
+  --accent:#55847e;
+  --strong:#3f6b65;
+  --soft:#b8d0cc;
+  --faint:#d7e6e3;
+  --dark:#304744;
+  --mid:#5f7e7a;
+  --light:#eef4f3;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  font-family:Ubuntu,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.chaflan{
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+}
+
+[hidden]{
+  display:none!important;
+}
+
+.login-screen{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:32px;
+  background:radial-gradient(circle at top left,var(--faint),transparent 34%),linear-gradient(180deg,#eef2f7,#e5ebf3);
+}
+
+.login-layout{
+  width:min(980px,100%);
+  display:grid;
+  grid-template-columns:minmax(280px,420px) minmax(320px,520px);
+  gap:24px;
+}
+
+.login-side,
+.login-card{
+  background:#fff;
+  border:1px solid #dfe4ea;
+  box-shadow:0 18px 46px #1f29371a;
+  padding:28px;
+}
+
+.login-side{
+  background:linear-gradient(180deg,var(--dark),var(--mid));
+  color:#fff;
+}
+
+.login-side h1{
+  font-size:36px;
+}
+
+.login-card h2{
+  font-size:30px;
+  margin:0;
+}
+
+.login-error{
+  color:#991b1b!important;
+  font-weight:800;
+}
+
+#topbar{
+  min-height:68px;
+  background:var(--dark);
+  color:#fff;
+  display:grid;
+  grid-template-columns:minmax(260px,380px) minmax(280px,1fr) auto;
+  align-items:center;
+  gap:20px;
+  padding:10px 20px;
+  flex-shrink:0;
+}
+
+#marca{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+#marca h1{
+  margin:0;
+  font-size:20px;
+}
+
+#marca p{
+  margin:0;
+  color:#ffffffb8;
+  font-size:12px;
+}
+
+.ju-logo{
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  background:#ffffff1f;
+  color:#fff;
+  font-weight:800;
+  font-size:20px;
+}
+
+.ju-logo-large{
+  width:72px;
+  height:72px;
+  font-size:28px;
+}
+
+#search-form,
+#herramientas,
+.ju-button-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+input,
+select,
+textarea,
+#search-input{
+  width:100%;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
+  padding:12px 14px;
+  outline:none;
+  font:inherit;
+  border-radius:0;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);
+}
+
+#search-input{
+  height:42px;
+  border-color:#ffffff29;
+  background:#ffffff1a;
+  color:#fff;
+}
+
+textarea{
+  resize:vertical;
+  min-height:110px;
+}
+
+.search-btn,
+.search-clear,
+.toolbtn-link,
+.ju-btn{
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);
+  border:0;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font:inherit;
+  font-weight:800;
+}
+
+.search-btn,
+.search-clear,
+.toolbtn-link{
+  min-height:42px;
+  padding:0 14px;
+  background:#ffffff1a;
+  color:#fff;
+}
+
+.toolbtn-link{
+  background:var(--mid);
+}
+
+.toolbtn-link.primario,
+.ju-btn-primary{
+  background:var(--accent);
+  color:#fff;
+}
+
+.toolbtn-link.danger{
+  background:#7f1d1d;
+}
+
+.ju-btn{
+  padding:11px 16px;
+  background:var(--mid);
+  color:#fff;
+}
+
+#mainApp{
+  height:100vh;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+#app{
+  flex:1;
+  min-height:0;
+  display:flex;
+  overflow:hidden;
+}
+
+#bandejas{
+  width:270px;
+  background:var(--dark);
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  overflow-y:auto;
+  direction:rtl;
+  flex-shrink:0;
+}
+
+#bandejas>*{
+  direction:ltr;
+}
+
+#bandejas a{
+  color:#fff;
+  text-decoration:none;
+  background:#ffffff14;
+  padding:14px 16px;
+  display:block;
+  font-weight:800;
+  transition:.25s;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+}
+
+#bandejas a.activo{
+  background:var(--mid);
+  width:calc(100% + 20px);
+  right:-20px;
+  position:relative;
+  clip-path:none;
+}
+
+.folder-line{
+  display:flex;
+  justify-content:space-between;
+}
+
+.folder-count,
+.ju-pill,
+.badge-thread{
+  display:inline-flex;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:800;
+  background:#ffffff24;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);
+}
+
+.ju-pill{
+  background:var(--soft);
+  color:var(--strong);
+}
+
+.is-success{
+  background:#dcfce7!important;
+  color:#166534!important;
+}
+
+.is-warning{
+  background:#fef3c7!important;
+  color:#92400e!important;
+}
+
+.is-danger{
+  background:#fee2e2!important;
+  color:#991b1b!important;
+}
+
+.cuenta{
+  margin-top:auto;
+  background:#ffffff0f;
+  color:#e6e9f2;
+  padding:16px;
+  font-size:13px;
+  line-height:1.6;
+}
+
+#mensajes{
+  width:390px;
+  background:var(--mid);
+  padding:20px 20px 20px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  overflow-y:auto;
+  direction:rtl;
+  flex-shrink:0;
+}
+
+#mensajes>*{
+  direction:ltr;
+}
+
+.side-title{
+  color:#fff;
+}
+
+.side-title h2{
+  margin:0;
+}
+
+.side-title p{
+  color:#ffffffb8;
+}
+
+.subject-select-wrap{
+  background:#ffffff14;
+  padding:14px;
+}
+
+.subject-select-wrap label{
+  display:block;
+  margin-bottom:8px;
+  color:#fff;
+  font-weight:800;
+}
+
+#subjectCards{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+#mensajes article{
+  background:var(--light);
+  padding:16px;
+  box-shadow:0 2px 8px #0001;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+}
+
+#mensajes article.activo{
+  right:-20px;
+  width:calc(100% + 20px);
+  position:relative;
+  clip-path:none;
+}
+
+#mensajes a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.asunto-linea{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+#mensajes h3{
+  margin:0;
+  font-size:15px;
+}
+
+.thread-meta,
+.ju-subtle{
+  color:var(--muted);
+  font-size:12px;
+}
+
+#contenido{
+  flex:1;
+  min-width:0;
+  min-height:0;
+  background:var(--light);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+#cabecera-contenido{
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+  background:#ffffffc7;
+  flex-shrink:0;
+}
+
+#cabecera-contenido h2{
+  margin:0 0 6px;
+  font-size:22px;
+}
+
+#cabecera-contenido p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+#panel{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:24px;
+}
+
+.memory-form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.ju-card,
+.results-card,
+.ju-mini-stat{
+  background:#fff;
+  border:1px solid #dfe4ea;
+  box-shadow:0 4px 12px #0000000d;
+}
+
+.ju-card{
+  padding:20px;
+}
+
+.section-heading{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.section-heading h3{
+  margin:0 0 6px;
+  font-size:20px;
+}
+
+.section-heading p{
+  margin:0;
+  color:var(--muted);
+}
+
+.ju-form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+label{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+label>span,
+.ju-fieldset b{
+  font-size:13px;
+  font-weight:800;
+}
+
+.ju-form-full{
+  grid-column:1/-1;
+}
+
+.ju-fieldset{
+  border:1px solid #e2e8f0;
+  background:linear-gradient(180deg,#fff,#f7f9fc);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.check-line{
+  flex-direction:row!important;
+  align-items:center;
+}
+
+.check-line input{
+  width:auto;
+  clip-path:none;
+}
+
+.ju-inline-metrics{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.ju-mini-stat{
+  padding:16px;
+  background:linear-gradient(180deg,#fff,#f4f7fb);
+}
+
+.ju-mini-stat b{
+  display:block;
+  font-size:28px;
+  color:var(--dark);
+}
+
+.ju-mini-stat span{
+  color:#64748b;
+  font-size:13px;
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:minmax(420px,1.15fr) minmax(420px,.85fr);
+  gap:18px;
+}
+
+.results-card{
+  padding:16px;
+  margin-bottom:18px;
+}
+
+.ju-table-scroll{
+  width:100%;
+  max-height:420px;
+  overflow:auto;
+  border:1px solid #dfe4ea;
+  background:#fff;
+}
+
+.ju-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:14px;
+}
+
+.ju-table th{
+  position:sticky;
+  top:0;
+  background:linear-gradient(180deg,#f8fafc,#eef2f7);
+  padding:12px 14px;
+  text-transform:uppercase;
+  font-size:12px;
+  border-bottom:1px solid #dfe4ea;
+}
+
+.ju-table td{
+  padding:11px 14px;
+  border-bottom:1px solid #e8edf5;
+}
+
+.ju-table td:not(:first-child),
+.ju-table th:not(:first-child){
+  text-align:center;
+}
+
+.ju-table-empty{
+  padding:26px 18px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed #d8dfeb;
+  background:#f8fafc;
+  margin:0;
+}
+
+.grade{
+  font-weight:800;
+}
+
+.grade.pass{
+  color:#15803d;
+}
+
+.grade.fail{
+  color:#b91c1c;
+}
+
+.grade.empty{
+  color:#a1a1aa;
+}
+
+.chart-box{
+  height:360px;
+}
+
+.admin-grid{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:18px;
+}
+
+.ju-toast-stack{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:1000;
+  width:min(420px,calc(100vw - 44px));
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.ju-toast{
+  display:grid;
+  grid-template-columns:42px 1fr auto;
+  gap:12px;
+  padding:14px;
+  background:#fffffff5;
+  border:1px solid #dfe4ea;
+  box-shadow:0 18px 38px #1f293724;
+}
+
+.ju-toast-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  background:var(--soft);
+  font-weight:800;
+}
+
+.ju-toast-title{
+  margin:0 0 3px;
+  font-weight:800;
+}
+
+.ju-toast-text{
+  margin:0;
+  color:var(--muted);
+}
+
+.ju-toast-close{
+  border:0;
+  background:transparent;
+  font-size:20px;
+}
+
+/* RESPONSIVE:
+   El scroll general queda bloqueado.
+   En pantallas medianas/pequeñas, el único scroll vertical principal queda en #panel.
+*/
+@media(max-width:1280px){
+  body{
+    overflow:hidden;
+  }
+
+  #topbar{
+    grid-template-columns:1fr;
+    flex-shrink:0;
+  }
+
+  #mainApp{
+    height:100vh;
+    min-height:0;
+    overflow:hidden;
+  }
+
+  #app{
+    flex:1;
+    min-height:0;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  #bandejas,
+  #mensajes{
+    width:100%;
+    max-height:220px;
+    min-height:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    direction:ltr;
+    flex-shrink:0;
+  }
+
+  #contenido{
+    width:100%;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+  }
+
+  #cabecera-contenido{
+    flex-shrink:0;
+  }
+
+  #panel{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:24px;
+  }
+
+  .results-grid,
+  .admin-grid,
+  .ju-form-grid,
+  .ju-inline-metrics,
+  .login-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media print{
+  #topbar,
+  #bandejas,
+  #mensajes,
+  .ju-toast-stack{
+    display:none!important;
+  }
+
+  body,
+  #app,
+  #contenido,
+  #panel{
+    display:block;
+    overflow:visible;
+    height:auto;
+  }
+
+  .ju-card,
+  .results-card,
+  .ju-mini-stat{
+    box-shadow:none;
+    clip-path:none;
+  }
+
+  .ju-table-scroll{
+    max-height:none;
+    overflow:visible;
+  }
+
+  .ju-table th{
+    position:static;
+  }
+
+  .results-grid{
+    grid-template-columns:1fr;
+  }
+}
