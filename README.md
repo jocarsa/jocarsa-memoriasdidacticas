@@ -14,13 +14,6 @@ jocarsa-memoriadidactica/
     └── grades.sqlite
 ```
 
-Usuario inicial:
-
-```text
-usuario: jocarsa
-contraseña: jocarsa
-rol: admin
-```
 
 Dependencias:
 
