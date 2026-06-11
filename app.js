@@ -151,8 +151,38 @@ function renderOptions(){
 }
 
 function renderCards(filter=''){
-  const q=filter.trim().toLowerCase(),vis=subjects.filter(s=>!q||`${s.full_name} ${s.slug} ${s.teacher_username}`.toLowerCase().includes(q));
-  $('subjectCards').innerHTML=vis.map(s=>`<article class="${String(s.id)===String(currentSubjectId)?'activo':''}"><a href="#" data-subject-id="${s.id}"><div class="asunto-linea"><h3>${esc(s.full_name||s.slug)}</h3><span class="badge-thread">${s.total_grades}</span></div><p class="thread-meta">${esc(s.slug)} · ${esc(s.teacher_display_name||s.teacher_username||'')}</p><p>${Number(s.has_memory)===1?'<span class="ju-pill is-success">Memoria iniciada</span>':'<span class="ju-pill is-warning">Pendiente</span>'}</p></a></article>`).join('')||'<p class="ju-table-empty">No hay asignaturas.</p>';
+  const q=filter.trim().toLowerCase(),
+        vis=subjects.filter(s=>!q||`${s.full_name} ${s.slug} ${s.teacher_username}`.toLowerCase().includes(q));
+
+  $('subjectCards').innerHTML=vis.map(s=>{
+    const progress=Math.max(0,Math.min(100,Number(s.memory_progress||0))),
+          filled=Number(s.memory_filled||0),
+          total=Number(s.memory_total||22),
+          statusHtml=progress>=100
+            ? '<span class="ju-pill is-success">Completa</span>'
+            : progress>0
+              ? '<span class="ju-pill is-info">En progreso</span>'
+              : '<span class="ju-pill is-warning">Pendiente</span>';
+
+    return `<article class="${String(s.id)===String(currentSubjectId)?'activo':''}">
+      <a href="#" data-subject-id="${s.id}">
+        <div class="asunto-linea">
+          <h3>${esc(s.full_name||s.slug)}</h3>
+          <span class="badge-thread">${s.total_grades}</span>
+        </div>
+        <p class="thread-meta">${esc(s.slug)} · ${esc(s.teacher_display_name||s.teacher_username||'')}</p>
+        <div class="subject-progress" aria-label="Progreso de memoria ${progress}%">
+          <div class="subject-progress-top">
+            ${statusHtml}
+            <span>${progress}% · ${filled}/${total} campos</span>
+          </div>
+          <div class="subject-progress-bar">
+            <span style="width:${progress}%"></span>
+          </div>
+        </div>
+      </a>
+    </article>`;
+  }).join('')||'<p class="ju-table-empty">No hay asignaturas.</p>';
 }
 
 async function selectSubject(id){
@@ -245,7 +275,6 @@ function chart(st){
   });
 }
 
-/* FIX: navegación correcta dentro del panel derecho */
 function goToSection(sectionId){
   if(sectionId==='adminUsers'){
     $('adminUsers').hidden=false;
@@ -361,7 +390,32 @@ $('clearSearchButton').onclick=()=>{
   renderCards('');
 };
 
-$('printButton').onclick=()=>window.print();
+/* PRINT FIX:
+   Browsers often crop textarea contents when printing.
+   This creates normal printable divs with the full textarea value,
+   then hides the real textarea only in print CSS.
+*/
+function preparePrintTextareas(){
+  document.querySelectorAll('.print-textarea-clone').forEach(x=>x.remove());
+
+  document.querySelectorAll('textarea').forEach(textarea=>{
+    const clone=document.createElement('div');
+    clone.className='print-textarea-clone';
+    clone.textContent=textarea.value || '';
+    textarea.insertAdjacentElement('afterend',clone);
+  });
+}
+
+function cleanPrintTextareas(){
+  document.querySelectorAll('.print-textarea-clone').forEach(x=>x.remove());
+}
+
+$('printButton').onclick=()=>{
+  preparePrintTextareas();
+  setTimeout(()=>window.print(),100);
+};
+
+window.addEventListener('afterprint',cleanPrintTextareas);
 
 window.onbeforeunload=e=>{
   if(!dirty)return;
